@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= actors.first_name %> </title>
+    <link rel='stylesheet' href='/css/style.css' />
+
+</head>
+<body>
+    <figure>
+        <img src="/img/logo-DH.png" alt="Logo Digital House">
+    </figure>    
+    <h1><%= actors.first_name + " " + actors.last_name %> </h1>
+    <br>
+    <p>NAME: <%= actors.first_name %> </p>
+    <p>SURNAME: <%= actors.last_name %> </p>
+    <p>RATING: <%= actors.rating %> </p>
+    <p>FAVORITE MOVIE: <a href="/movies/detail/<%= actors.favorite.id%>"><%= actors.favorite.title %> </a></p>
+  
+
+</body>
+</html>

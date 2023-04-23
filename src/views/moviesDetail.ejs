@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= movie.title %> </title>
+    <link rel='stylesheet' href='/css/style.css' />
+
+</head>
+<body>
+    <figure>
+        <img src="/img/logo-DH.png" alt="Logo Digital House">
+    </figure>
+    <h1><%= movie.title %> </h1>    
+    <br>
+    <p>RATING: <%= movie.rating %> </p>
+    <p>AWARDS: <%= movie.awards %> </p>
+    <p>LENGTH: <%= movie.length + ' min'%> </p>
+    <p>RELEASE DATE: <%= movie.release_date %> </p>
+   
+    <!--Mediante la asociacion traigo el nombre del genero de la pelicula -->
+    <% if (movie.genre) { %>
+     <p>GENRE: <a href="/genres/detail/<%= movie.genre.id %>"><%= movie.genre.name %></a></p>
+    <% }else{ %>
+        <p>No especifica genero</p>
+        <% } %>
+            
+     
+      <br>
+      <h4>ACTORS:   </h4>
+    <% movie.actors.forEach(actors => { %>
+        <li>
+<a href="/actors/detail/<%= actors.id %>"><%= actors.first_name + " " + actors.last_name %></a>
+        </li>
+
+    <% }) %>
+    
+    <br>
+    <section>
+        <p>
+            <a href="../edit/<%= movie.id %>"><button class="botonAgregar" type="submit">Modificar</button>   </a>
+            <a href="../delete/<%= movie.id %>"><button class="botonBorrar" type="submit">Eliminar</button>   </a>
+
+        </p>
+        
+ </section>
+
+</body>
+</html>
