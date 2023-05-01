@@ -14,7 +14,7 @@ const Actors = db.Actor;
 const moviesController = {
   list: (req, res) => {
     //traigo Movies que hace referencia al modelo de Movie, y findAll que busca y develve todo de ese modelo.
-    Movies.findAll().then((movies) => {
+    db.Movie.findAll().then((movies) => {
       res.render("moviesList.ejs", { movies });
     });
   },
@@ -110,9 +110,32 @@ const moviesController = {
       })
       .catch((error) => console.log(error));
   },
-  destroy: function (req, res) {
+  destroy: function (req,res) {
+    db.Actor.update(
+        {
+            favorite_movie_id : null
+        },{
+            where : {
+                favorite_movie_id : req.params.id
+            },
+        }
+    ).then( () => {
+        db.Actor_Movie.destroy({
+            where : {
+                movie_id : req.params.id
+            }
+        }).then(() => {
+            db.Movie.destroy(
+                {
+                    where : {
+                        id : req.params.id
+                    }
+                }
+            ).then(() => res.redirect("/movies"))
+    })
+    }).catch((error) => console.log(error))
 
-},
-};
+}
+}
 
 module.exports = moviesController;
